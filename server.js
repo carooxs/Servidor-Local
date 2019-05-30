@@ -1,4 +1,4 @@
-const http = require('http')
+const express = require('express')
 const comidas = {
     pratosFavoritos: [
   {
@@ -25,23 +25,11 @@ const comidas = {
 ]
 }
 
-const servidor = http.createServer(function (request, response){
-    if (request.url ==='/') {
-        response.end('Hello Wonderful World!')
-    } else if (request.url === '/comidas') {
-        
-        if (request.method === 'GET'){
-          response.writeHead(200, {"Content-Type": "aplication/json", "Access-Control-Allow-Origin": "*"})  
+const servidor = express()
+servidor.get("/comidas", (request, response) => {
+  response.send("Boa noite, amigas!")
 
-          response.write(JSON.stringify(comidas))
-           
-          response.end()  
-        }else  if (request.method === 'POST'){
-            response.writeHead(201, {"Content-Type": "text/html;charset=utf-8"})  
-            response.end("<h1>Respostão Grandão Diferentão da moléstia do post</h1>")  
-          }
-          
-    }
-}) 
+})
+
 servidor.listen(3000)
 console.log('Servidorzinho rodando na porta 3000');
